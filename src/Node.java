@@ -1,5 +1,8 @@
 /**
  * Created by mgunes on 30.11.2016.
+ *
+ * Bir düğüme ait yapıyı tutar
+ * Algoritmik bir işlemi yok
  */
 public class Node {
     private int id;
@@ -9,6 +12,7 @@ public class Node {
     private NodeType type;
     private int value;
     private char operator;
+    private int generation;
 
     public enum NodeType {
         ROOT,
@@ -83,5 +87,13 @@ public class Node {
 
     public void setOperator(char operator) {
         this.operator = operator;
+    }
+
+    public int getGeneration() {
+        return generation;
+    }
+
+    public void setGeneration(int generation) {
+        this.generation = generation;
     }
 }

@@ -4,6 +4,9 @@ import java.util.*;
 
 /**
  * Created by mgunes on 01.12.2016.
+ *
+ * Ağaçlar üzerinde crosssover algoritmalarının çalışması için
+ * kullanılan sınıf
  */
 public class ForestPopulation {
     public static int POPULATION_COUNT = 200;
@@ -16,9 +19,9 @@ public class ForestPopulation {
         this.trees = tree;
         this.goal = goal;
 
-        for(int i = 0; i < trees.size(); i++) {
+        /*for(int i = 0; i < trees.size(); i++) {
             System.out.println(trees.get(i).getResult() + " ");
-        }
+        }*/
     }
 
 
@@ -26,6 +29,7 @@ public class ForestPopulation {
         boolean found = false;
         int generationCount = 0;
 
+        //doğru sonunu veren ağaç bulunana kadar devam eder
         while(!found) {
             generationCount ++;
             //ağaçarı sonuca yakınlık derecesine göre sırala
@@ -35,18 +39,21 @@ public class ForestPopulation {
             if(trees.get(0).getAccuracy() == 0) { //sonuca en yakın olanın değeri 0sa bulunmuştur
                 found  = true;
             } else {
-                trees = crossover();
+                trees = generateChild();
             }
         }
 
         System.out.println("Nesil sayısı:" + generationCount);
+        trees.get(0).getNodeList().get(0).setGeneration(generationCount);
         return  trees.get(0);
     }
 
-    private List<BinaryTree> crossover() {
+    private List<BinaryTree> generateChild() {
         List<BinaryTree> newGeneration = new ArrayList<>();
 
-        //en iyi ilk yarısını al
+        /*her parent tan iki child üretilir
+            her üretme işlemi sonucu, populasyona ait ağaç listesi güncellenir
+         */
         for(int i = 0; i < trees.size(); i += 2) {
             List<Character> firstOperators = findOperators(trees.get(i));
             List<Integer> firstNumbers = findValues(trees.get(i));
@@ -62,8 +69,8 @@ public class ForestPopulation {
             List<Integer> firstChildNumbers = crossover.getFirstChildNumbers();
             List<Integer> secondChildNumbers = crossover.getSecondChildNumbers();
 
-            BinaryTree firstChild = new BinaryTree(firstChildOperators, firstChildNumbers, goal);
-            BinaryTree secondChild = new BinaryTree(secondChildOperators, secondChildNumbers, goal);
+            BinaryTree firstChild = new BinaryTree(firstChildOperators, firstChildNumbers);
+            BinaryTree secondChild = new BinaryTree(secondChildOperators, secondChildNumbers);
             newGeneration.add(firstChild);
             newGeneration.add(secondChild);
         }
@@ -71,7 +78,7 @@ public class ForestPopulation {
         return newGeneration;
     }
 
-    //bir tree nin operator değerlerini döndürür
+    //verilen ağacın değerlerini döner
     private List<Character> findOperators(BinaryTree tree) {
         List<Character> operators = new ArrayList<>();
 
@@ -84,6 +91,7 @@ public class ForestPopulation {
         return operators;
     }
 
+    //verilen ağacın yaprak değerlerini döner
     private List<Integer> findValues(BinaryTree tree) {
         List<Integer> values = new ArrayList<>();
 

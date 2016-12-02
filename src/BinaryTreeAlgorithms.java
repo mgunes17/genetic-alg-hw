@@ -2,6 +2,8 @@ import java.util.*;
 
 /**
  * Created by mgunes on 01.12.2016.
+ *
+ * Binary Tree için gerekli algoritmalar bu sınıf üzerinden yürütüğlmektedir
  */
 public class BinaryTreeAlgorithms {
     public static int LEAF_COUNT = 6;
@@ -24,6 +26,11 @@ public class BinaryTreeAlgorithms {
         leafList.add(root.getId());
         nodes.put(root.getId(), root);
 
+        /* her oluşturulan node önce yaprak listesine atılır
+            Eğer ordan çıkarılırsa tipi branch olarak değiştirilir
+            Bu node a bağlı iki çocuk üretilip yaprak listesine eklenir
+            Bu işlem 6 yaprak elde edene kadar devam eder
+         */
         while(leafList.size() < LEAF_COUNT) {
             selectedNode = r.nextInt(leafList.size());
 
@@ -51,6 +58,11 @@ public class BinaryTreeAlgorithms {
 
        return nodes;
     }
+
+    /*eğer node dalsa rastgele bir operatör atar
+        yapraksa sayıları sırayla atar
+        kullanıcıdan alınan sayılar arrayliste random yerleştirildi (shuffle metodu)
+     */
 
     public void placeNodeValues( Map<Integer, Node> nodes) {
         int i = 0;

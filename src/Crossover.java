@@ -2,7 +2,10 @@ import java.util.*;
 
 /**
  * Created by mgunes on 02.12.2016.
+ *
+ * Crossover işlemlerine ait bilgi ve metotlara sahip olan sınıf
  */
+
 public class Crossover {
     private List<Character> firstChildOperators;
     private List<Character> secondChildOperators;
@@ -16,6 +19,7 @@ public class Crossover {
         secondChildNumbers = new ArrayList<>();
     }
 
+    //uniform cross over algoritmasının implement edilmesi
     public void uniformCrossoverForOperators( List<Character> firstOperators,  List<Character> secondOperators  ) {
         Random random = new Random();
 
@@ -30,6 +34,7 @@ public class Crossover {
         }
     }
 
+    //Sıra tabanlı crossover algoritmasının implement edilmesi
     public void basedOrderCrossoverForNumbers( List<Integer> firstNumbers,  List<Integer> secondNumbers) {
         List<Integer> template = new ArrayList<>();
         Map<Integer, Integer> change = new HashMap<Integer, Integer>();
